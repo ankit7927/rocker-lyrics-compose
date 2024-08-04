@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.lmptech.rockers.R
 import com.lmptech.rockers.model.CollectionModel
 import com.lmptech.rockers.ui.home.HorizontalSongCard
 import com.lmptech.rockers.ui.navigation.NavDestination
@@ -77,6 +79,8 @@ fun SongCollection(
     }
 }
 
+private const val s = "Back Button"
+
 @Composable
 fun CollectionBody(
     modifier: Modifier = Modifier,
@@ -94,7 +98,7 @@ fun CollectionBody(
                     .padding(top = 12.dp, bottom = 4.dp)) {
                 AsyncImage(
                     model = collectionModel.thumbnail,
-                    contentDescription = "",
+                    contentDescription = "${collectionModel.name} thumbnail",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
@@ -107,7 +111,7 @@ fun CollectionBody(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = ""
+                        contentDescription = stringResource(R.string.back_button)
                     )
                 }
             }

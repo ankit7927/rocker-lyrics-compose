@@ -48,6 +48,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +58,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.lmptech.rockers.R
 import com.lmptech.rockers.model.SongModel
 import com.lmptech.rockers.ui.navigation.NavDestination
 
@@ -75,22 +77,32 @@ fun LyricsScreen(
 ) {
 
     val lyricsState by lyricsViewModel.lyricsUiState.collectAsState()
-    val toast = Toast.makeText(LocalContext.current, "feature coming soon", Toast.LENGTH_SHORT)
+    val toast = Toast.makeText(
+        LocalContext.current,
+        stringResource(R.string.coming_soon), Toast.LENGTH_SHORT
+    )
 
     Scaffold(
+        modifier = modifier,
         bottomBar = {
             BottomAppBar(
                 actions = {
                     IconButton(onClick = { toast.show() }) {
-                        Icon(imageVector = Icons.Rounded.Share, contentDescription = "")
+                        Icon(imageVector = Icons.Rounded.Share, contentDescription = "Share Lyrics")
                     }
                     IconButton(onClick = { toast.show() }) {
-                        Icon(imageVector = Icons.Rounded.Settings, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.Rounded.Settings,
+                            contentDescription = stringResource(R.string.font_settings)
+                        )
                     }
                 },
                 floatingActionButton = {
                     FloatingActionButton(onClick = { toast.show() }) {
-                        Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.Default.FavoriteBorder,
+                            contentDescription = stringResource(R.string.add_to_favorite)
+                        )
                     }
                 })
         }
@@ -103,7 +115,7 @@ fun LyricsScreen(
                     .padding(it)) {
                 CircularProgressIndicator()
             }
-        } else if (lyricsState.error!="") {
+        } else if (lyricsState.error.isNotEmpty()) {
             Box (contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
@@ -132,7 +144,7 @@ fun LyricsBody(modifier: Modifier = Modifier, songModel: SongModel, onBackTap: (
             .padding(top = 12.dp, bottom = 4.dp)) {
             AsyncImage(
                 model = songModel.thumbnail,
-                contentDescription = "",
+                contentDescription = "${songModel.name} thumbnail",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
@@ -145,7 +157,7 @@ fun LyricsBody(modifier: Modifier = Modifier, songModel: SongModel, onBackTap: (
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                    contentDescription = ""
+                    contentDescription = stringResource(R.string.back_button)
                 )
             }
         }
@@ -169,7 +181,11 @@ fun LyricsBody(modifier: Modifier = Modifier, songModel: SongModel, onBackTap: (
         ) {
             LazyRow {
                 items(items = songModel.artist!!) {
-                    Text(text = it.name, modifier=Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                    Text(
+                        text = it.name,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
                     Spacer(modifier = Modifier.width(6.dp))
                 }
             }

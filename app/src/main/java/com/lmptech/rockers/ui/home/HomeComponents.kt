@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -101,7 +102,7 @@ fun HorizontalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSo
         leadingContent = {
             AsyncImage(
                 model = songModel.thumbnail,
-                contentDescription = "",
+                contentDescription = "${songModel.name} thumbnail",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(60.dp)
@@ -126,7 +127,8 @@ fun VerticalArtistCard(modifier: Modifier = Modifier, artistModel: ArtistModel) 
                 .padding(8.dp)
                 .clip(CircleShape),
             painter = painterResource(id = R.drawable.rounded_person_24),
-            contentDescription = "")
+            contentDescription = stringResource(R.string.artist_logo)
+        )
 
         Text(
             text = artistModel.name,
@@ -153,7 +155,7 @@ fun HorizontalArtistCard(modifier: Modifier = Modifier, artistModel: ArtistModel
             )
         },
         headlineContent = { Text(text = artistModel.name) },
-        supportingContent = { Text(text = "get more songs") })
+        supportingContent = { Text(text = stringResource(R.string.get_more_songs)) })
 }
 
 @Composable
@@ -166,10 +168,13 @@ fun CollectionCard(modifier: Modifier = Modifier, collectionModel: CollectionMod
                 .fillMaxWidth()
                 .padding(8.dp)
         ) {
-            println(collectionModel)
             AsyncImage(
-                modifier = Modifier.fillMaxWidth().height(80.dp).clip(RoundedCornerShape(12.dp)),
-                model = collectionModel.thumbnail, contentDescription = "",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                model = collectionModel.thumbnail,
+                contentDescription = "${collectionModel.name} thumbnail",
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(8.dp))

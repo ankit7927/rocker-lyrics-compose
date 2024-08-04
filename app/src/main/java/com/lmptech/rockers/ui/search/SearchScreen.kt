@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,12 +22,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.lmptech.rockers.R
 import com.lmptech.rockers.ui.home.HorizontalSongCard
 import com.lmptech.rockers.ui.navigation.NavDestination
 
@@ -57,10 +60,13 @@ fun SearchScreen(
                 onSearch = { },
                 active = false,
                 onActiveChange = {},
-                placeholder = { Text(text = "Search song")},
+                placeholder = { Text(text = stringResource(R.string.search_song))},
                 leadingIcon = {
                     IconButton(onClick = onBackTap) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = stringResource(R.string.back_button)
+                        )
                     }
                 }
             ) {}
@@ -69,14 +75,17 @@ fun SearchScreen(
         LazyColumn(modifier = modifier.padding(paddingValues)) {
             if (searchUiState.loading) {
                 item {
-                    Box (modifier=Modifier.fillParentMaxSize(), contentAlignment = Alignment.Center) {
+                    Box(
+                        modifier = Modifier.fillParentMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
                         CircularProgressIndicator()
                     }
                 }
             } else if (searchUiState.songs.isEmpty() && searchUiState.query.isEmpty()) {
                 item {
                     Text(
-                        text = "Search for songs",
+                        text = stringResource(R.string.search_song),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),
@@ -91,7 +100,7 @@ fun SearchScreen(
             } else if (searchUiState.songs.isEmpty()) {
                 item {
                     Text(
-                        text = "No songs found",
+                        text = stringResource(R.string.no_songs_found),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),

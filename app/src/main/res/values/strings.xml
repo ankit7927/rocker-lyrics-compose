@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Rockers</string>
+    <string name="app_name">Rocker Lyrics</string>
+    <string name="back_button">Back Button</string>
+    <string name="artist_logo">Artist Logo</string>
+    <string name="get_more_songs">get more songs</string>
+    <string name="search_song">Search Song</string>
+    <string name="more_options">More Options</string>
+    <string name="home_feed_is_not_found">home feed is not found</string>
+    <string name="top_lyrics">Top lyrics for you</string>
+    <string name="best_collections">Best Collections</string>
+    <string name="trending_lyrics">Trending lyrics</string>
+    <string name="coming_soon">feature coming soon</string>
+    <string name="font_settings">Font Settings</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="no_songs_found">No songs found</string>
 </resources>

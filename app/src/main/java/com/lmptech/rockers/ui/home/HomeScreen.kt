@@ -25,10 +25,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.lmptech.rockers.R
 import com.lmptech.rockers.data.remote.model.HomeFeed
 import com.lmptech.rockers.ui.navigation.NavDestination
 
@@ -50,15 +52,23 @@ fun HomeScreen(
     val homeState by homeViewModel.homeState.collectAsState()
 
     Scaffold(
+        modifier = modifier,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text(text = "Rockers") }, navigationIcon = {
+            CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.app_name)) },
+                navigationIcon = {
                     IconButton(onClick = onSearchIconTap) {
-                        Icon(imageVector = Icons.Default.Search, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.Default.Search, contentDescription = stringResource(
+                                R.string.search_song
+                            )
+                        )
                     }
                 }, actions = {
                     IconButton(onClick = { /*TODO*/ }) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "")
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = stringResource(R.string.more_options)
+                        )
                     }
                 })
         }) {
@@ -85,7 +95,7 @@ fun HomeScreen(
                     .fillMaxSize()
                     .padding(it), contentAlignment = Alignment.Center
             ) {
-                Text(text = "home feed is not found")
+                Text(text = stringResource(R.string.home_feed_is_not_found))
             }
         } else {
             HomeBody(
@@ -105,7 +115,7 @@ fun HomeBody(modifier: Modifier = Modifier, homeFeed: HomeFeed, onSongTap: (Int)
     ) {
         item {
             Text(
-                text = "Top lyrics for you",
+                text = stringResource(R.string.top_lyrics),
                 style = TextStyle(fontWeight = FontWeight.Medium),
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 6.dp)
@@ -120,7 +130,7 @@ fun HomeBody(modifier: Modifier = Modifier, homeFeed: HomeFeed, onSongTap: (Int)
         if (homeFeed.collections.isNotEmpty()) {
             item {
                 Text(
-                    text = "Best Collections",
+                    text = stringResource(R.string.best_collections),
                     style = TextStyle(fontWeight = FontWeight.Medium),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
                 )
@@ -140,7 +150,7 @@ fun HomeBody(modifier: Modifier = Modifier, homeFeed: HomeFeed, onSongTap: (Int)
 
         item {
             Text(
-                text = "Trending lyrics",
+                text = stringResource(R.string.trending_lyrics),
                 style = TextStyle(fontWeight = FontWeight.Medium),
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
