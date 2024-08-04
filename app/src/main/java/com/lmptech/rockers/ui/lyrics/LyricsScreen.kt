@@ -5,10 +5,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,12 +21,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalIconButton
@@ -38,7 +32,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -109,17 +102,21 @@ fun LyricsScreen(
     ) {
 
         if (lyricsState.loading) {
-            Box (contentAlignment = Alignment.Center,
+            Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)) {
+                    .padding(it)
+            ) {
                 CircularProgressIndicator()
             }
         } else if (lyricsState.error.isNotEmpty()) {
-            Box (contentAlignment = Alignment.Center,
+            Box(
+                contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(it)) {
+                    .padding(it)
+            ) {
                 Text(text = lyricsState.error)
             }
         } else if (lyricsState is LyricsUiState.WithLyrics) {
@@ -136,12 +133,17 @@ fun LyricsScreen(
 
 @Composable
 fun LyricsBody(modifier: Modifier = Modifier, songModel: SongModel, onBackTap: () -> Unit) {
-    Column (modifier= modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box (modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .padding(horizontal = 16.dp)
-            .padding(top = 12.dp, bottom = 4.dp)) {
+    Column(
+        modifier = modifier.verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(horizontal = 16.dp)
+                .padding(top = 12.dp, bottom = 4.dp)
+        ) {
             AsyncImage(
                 model = songModel.thumbnail,
                 contentDescription = "${songModel.name} thumbnail",
@@ -194,7 +196,6 @@ fun LyricsBody(modifier: Modifier = Modifier, songModel: SongModel, onBackTap: (
         LyricsText(lyricsHtml = songModel.lyrics!!)
     }
 }
-
 
 
 @Composable

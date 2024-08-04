@@ -109,7 +109,12 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeBody(modifier: Modifier = Modifier, homeFeed: HomeFeed, onSongTap: (Int) -> Unit, onCollectionTap: (Int) -> Unit) {
+fun HomeBody(
+    modifier: Modifier = Modifier,
+    homeFeed: HomeFeed,
+    onSongTap: (Int) -> Unit,
+    onCollectionTap: (Int) -> Unit
+) {
     LazyColumn(
         modifier = modifier,
     ) {

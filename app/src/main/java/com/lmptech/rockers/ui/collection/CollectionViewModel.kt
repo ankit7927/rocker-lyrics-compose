@@ -20,7 +20,10 @@ data class SongListUiState(
 )
 
 @HiltViewModel
-class CollectionViewModel @Inject constructor(songRepository: SongRepository, savedStateHandle: SavedStateHandle): ViewModel() {
+class CollectionViewModel @Inject constructor(
+    songRepository: SongRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
     private val _songListUiState = MutableStateFlow(SongListUiState())
     val songListUiState: StateFlow<SongListUiState> = _songListUiState
 

@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class HomeState(
-    val loading:Boolean = false,
-    val error:String? = null,
+    val loading: Boolean = false,
+    val error: String? = null,
     val homeFeed: HomeFeed? = null
 )
 
@@ -22,8 +22,8 @@ data class HomeState(
 class HomeViewModel @Inject constructor(
     private val songRepository: SongRepository
 ) : ViewModel() {
-    private val mutableHomeState:MutableStateFlow<HomeState> = MutableStateFlow(HomeState())
-    val homeState:StateFlow<HomeState> = mutableHomeState.asStateFlow()
+    private val mutableHomeState: MutableStateFlow<HomeState> = MutableStateFlow(HomeState())
+    val homeState: StateFlow<HomeState> = mutableHomeState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

@@ -25,7 +25,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,27 +51,35 @@ fun SongCollection(
 
     val songCollection by collectionViewModel.songListUiState.collectAsState()
 
-    Scaffold () {
+    Scaffold {
         if (songCollection.loading) {
-            Box (modifier = Modifier
-                .fillMaxSize()
-                .padding(it)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
                 CircularProgressIndicator()
             }
         } else if (songCollection.error != null) {
-            Box (modifier = Modifier
-                .fillMaxSize()
-                .padding(it)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
                 Text(text = songCollection.error!!)
             }
         } else if (songCollection.collectionModel != null) {
-            CollectionBody(modifier = Modifier.padding(it),
+            CollectionBody(
+                modifier = Modifier.padding(it),
                 collectionModel = songCollection.collectionModel!!,
-                onBackTap = onBackTap, onSongTap= onSongTap)
+                onBackTap = onBackTap, onSongTap = onSongTap
+            )
         } else {
-            Box (modifier = Modifier
-                .fillMaxSize()
-                .padding(it)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+            ) {
                 Text(text = "collection is not found")
             }
         }
@@ -95,7 +102,8 @@ fun CollectionBody(
                     .fillMaxWidth()
                     .height(200.dp)
                     .padding(horizontal = 16.dp)
-                    .padding(top = 12.dp, bottom = 4.dp)) {
+                    .padding(top = 12.dp, bottom = 4.dp)
+            ) {
                 AsyncImage(
                     model = collectionModel.thumbnail,
                     contentDescription = "${collectionModel.name} thumbnail",
@@ -132,7 +140,7 @@ fun CollectionBody(
                     .padding(top = 6.dp),
                 style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal)
             )
-            
+
             Spacer(modifier = Modifier.height(12.dp))
         }
 

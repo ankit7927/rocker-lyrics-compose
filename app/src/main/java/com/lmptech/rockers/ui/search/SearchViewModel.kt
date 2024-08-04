@@ -11,19 +11,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class SearchUiState(
-    val loading:Boolean = false,
+    val loading: Boolean = false,
     val error: String = "",
-    val query:String = "",
-    val songs:List<SongModel> = emptyList(),
-    val searchActive:Boolean = false
+    val query: String = "",
+    val songs: List<SongModel> = emptyList(),
+    val searchActive: Boolean = false
 )
 
 @HiltViewModel
-class SearchViewModel @Inject constructor (private val songRepository: SongRepository) : ViewModel() {
+class SearchViewModel @Inject constructor(private val songRepository: SongRepository) :
+    ViewModel() {
     private val _searchUiState = MutableStateFlow(SearchUiState())
     val searchUiState: StateFlow<SearchUiState> = _searchUiState
 
-    fun onQueryChange(query:String) {
+    fun onQueryChange(query: String) {
         viewModelScope.launch {
             _searchUiState.emit(_searchUiState.value.copy(query = query, loading = true))
 

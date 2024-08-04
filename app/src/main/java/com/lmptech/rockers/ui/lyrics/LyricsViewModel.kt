@@ -10,30 +10,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed interface LyricsUiState{
-    val loading:Boolean
-    val error:String
+sealed interface LyricsUiState {
+    val loading: Boolean
+    val error: String
 
-    data class WithoutLyrics (
+    data class WithoutLyrics(
         override val loading: Boolean,
         override val error: String
     ) : LyricsUiState
 
-    data class WithLyrics (
+    data class WithLyrics(
         override val loading: Boolean,
         override val error: String,
         val songModel: SongModel
-    ): LyricsUiState
+    ) : LyricsUiState
 }
 
 
-private data class LyricsViewModelState (
+private data class LyricsViewModelState(
     val loading: Boolean = false,
     val error: String? = null,
     val songModel: SongModel? = null
@@ -64,12 +63,12 @@ class LyricsViewModel @Inject constructor(
     private val songId: Int = checkNotNull(savedStateHandle.get<Int>(LyricsDestination.SONG_ID))
 
     init {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             mutableLyricsViewModelState.emit(mutableLyricsViewModelState.value.copy(loading = true))
             val response = songRepository.getSongById(id = songId)
 
             try {
-                if (response.isSuccessful && response.body()!= null) {
+                if (response.isSuccessful && response.body() != null) {
                     mutableLyricsViewModelState.emit(
                         mutableLyricsViewModelState.value.copy(
                             loading = false,

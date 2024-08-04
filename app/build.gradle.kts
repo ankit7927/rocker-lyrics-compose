@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -25,7 +27,16 @@ android {
     }
 
     buildTypes {
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        debug {
+            buildConfigField("String", "BASE_URL", properties.getProperty("DEBUG_BASE_URL"))
+        }
         release {
+            buildConfigField("String", "BASE_URL",  properties.getProperty("RELEASE_BASE_URL"))
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -42,6 +53,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -74,7 +86,7 @@ dependencies {
 
     runtimeOnly("androidx.compose.material:material-icons-extended:1.7.0-beta06")
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
 

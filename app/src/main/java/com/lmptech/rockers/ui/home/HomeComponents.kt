@@ -14,11 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,8 +36,12 @@ import com.lmptech.rockers.model.CollectionModel
 import com.lmptech.rockers.model.SongModel
 
 @Composable
-fun VerticalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSongTap: (Int) -> Unit) {
-    Column (
+fun VerticalSongCard(
+    modifier: Modifier = Modifier,
+    songModel: SongModel,
+    onSongTap: (Int) -> Unit
+) {
+    Column(
         modifier = modifier
             .width(320.dp)
             .padding(vertical = 6.dp)
@@ -69,7 +69,7 @@ fun VerticalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSong
         Spacer(modifier = Modifier.height(8.dp))
 
         AnimatedVisibility(visible = songModel.artist != null) {
-            Row (verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 songModel.artist!!.map {
                     Text(
                         text = it.name,
@@ -96,7 +96,11 @@ fun VerticalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSong
 
 
 @Composable
-fun HorizontalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSongTap: (Int) -> Unit) {
+fun HorizontalSongCard(
+    modifier: Modifier = Modifier,
+    songModel: SongModel,
+    onSongTap: (Int) -> Unit
+) {
     ListItem(
         modifier = modifier.clickable { onSongTap.invoke(songModel.id) },
         leadingContent = {
@@ -117,9 +121,10 @@ fun HorizontalSongCard(modifier: Modifier = Modifier, songModel: SongModel, onSo
 
 @Composable
 fun VerticalArtistCard(modifier: Modifier = Modifier, artistModel: ArtistModel) {
-    Column (
+    Column(
         modifier = modifier.width(120.dp),
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -137,7 +142,8 @@ fun VerticalArtistCard(modifier: Modifier = Modifier, artistModel: ArtistModel) 
             maxLines = 2,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp))
+                .padding(horizontal = 8.dp)
+        )
     }
 }
 
@@ -159,7 +165,11 @@ fun HorizontalArtistCard(modifier: Modifier = Modifier, artistModel: ArtistModel
 }
 
 @Composable
-fun CollectionCard(modifier: Modifier = Modifier, collectionModel: CollectionModel, onCollectionClick:(Int)->Unit) {
+fun CollectionCard(
+    modifier: Modifier = Modifier,
+    collectionModel: CollectionModel,
+    onCollectionClick: (Int) -> Unit
+) {
     Card(
         modifier = modifier.padding(4.dp),
         onClick = { onCollectionClick.invoke(collectionModel.id) }) {

@@ -1,5 +1,6 @@
 package com.lmptech.rockers.data.remote
 
+import com.lmptech.rockers.BuildConfig
 import com.lmptech.rockers.data.remote.service.SongApiService
 import dagger.Module
 import dagger.Provides
@@ -17,8 +18,7 @@ object RemoteConfig {
     @Singleton
     fun getRetrofitInstance(): Retrofit {
         return Retrofit.Builder()
-            //.baseUrl("https://rockerlyrics.pythonanywhere.com/api/")
-            .baseUrl("http://192.168.247.24:8000/api/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

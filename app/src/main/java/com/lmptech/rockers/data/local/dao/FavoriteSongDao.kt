@@ -2,7 +2,6 @@ package com.lmptech.rockers.data.local.dao
 
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import androidx.room.Query
 import com.lmptech.rockers.model.SongModel
 
 interface FavoriteSongDao {
