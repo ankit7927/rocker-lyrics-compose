@@ -1,5 +1,17 @@
 package com.lmptech.rockers.ui.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.EaseIn
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onPlaced
@@ -26,7 +38,9 @@ fun RockerNavigation(
     navController: NavHostController = rememberNavController()
 ) {
     NavHost(
-        modifier = modifier, navController = navController, startDestination = HomeDestination.route
+        modifier = modifier,
+        navController = navController,
+        startDestination = HomeDestination.route,
     ) {
         composable(route = HomeDestination.route) {
             HomeScreen(
@@ -42,7 +56,19 @@ fun RockerNavigation(
                 navArgument(name = LyricsDestination.SONG_ID) {
                     type = NavType.IntType
                 }
-            )
+            ),
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            }
         ) {
             LyricsScreen(
                 onBackTap = {
@@ -56,7 +82,19 @@ fun RockerNavigation(
                 navArgument(name = CollectionDestination.COLLECTION_ID) {
                     type = NavType.IntType
                 }
-            )
+            ),
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            }
         ) {
             SongCollection(
                 onBackTap = { navController.popBackStack() },
@@ -64,7 +102,21 @@ fun RockerNavigation(
             )
         }
 
-        composable(route = SearchDestination.route) {
+        composable(
+            route = SearchDestination.route,
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                    animationSpec = spring(dampingRatio = Spring.DampingRatioNoBouncy, stiffness = Spring.StiffnessMediumLow)
+                )
+            }
+        ) {
             SearchScreen(onBackTap = { navController.popBackStack() },
                 onSongTap = { navController.navigate("${LyricsDestination.route}/${it}") })
         }
